@@ -64,25 +64,6 @@ function checkGroup_POST(req, res, next) {
   });
 }
 
-
-/*
- GET /group?id=0
- GET /group/list
- POST /group
- DELETE /group
- PUT /group
- */
-/*
-  {
-    title: "",
-    description: "",
-    participants: {
-      owner: owner_id,
-      members: [...members_id]
-    }
-  }
- */
-
 router.get('/', (req, res) => {
   const group_id = parseInt(req.query.group_id);
 
@@ -334,19 +315,6 @@ router.post('/comment', checkAuth, checkGroup_POST, async (req, res) => {
     console.log(error);
     res.status(500).send(error);
   });
-});
-
-router.post('/comment/modify/', checkAuth, checkGroup_POST, (req, res) => {
-  var group_id = parseInt(req.body.group_id);
-  var student_id = req.session.student_id;
-  var {text, comment_id} = req.body;
-
-  // TODO: check validity of comment_id with respect to group_id, student_id
-  // OR just ...
-  // - update comment set text="${text(sanitized)}"
-  //    where group_id=${group_id} and comment_id=${comment_id} and student_id=${};
-
-  // Not implemented yet
 });
 
 // Since comment listing does not require authorization, it's added just like /group/detail
